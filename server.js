@@ -1,6 +1,6 @@
 const express = require('express');
 const path  = require('path');
-const cors = require('cors');
+//const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
 const messagesRoute = require('./routes/messagesRoute');
@@ -15,6 +15,25 @@ app.use("/api/messages",messagesRoute);
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true,
 // }).then(()=>{console.log('connected db')});
+
+const whitelist = ['http://localhost:3000', 'https://reactappie.herokuapp.com'];
+const corsOptions = {
+  credentials: true, // This is important.
+  origin: (origin, callback) => {
+    if(whitelist.includes(origin))
+      return callback(null, true)
+
+      callback(new Error('Not allowed by CORS'));
+  }
+}
+
+app.use(cors(corsOptions));
+
+
+
+
+
+
 const mongo = async()=>{
     try {
         const con = await mongoose.connect(process.env.MONGO_URL,{
