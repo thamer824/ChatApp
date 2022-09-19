@@ -1,25 +1,20 @@
 const express = require('express');
+const path  = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
 const messagesRoute = require('./routes/messagesRoute');
-const path  = require('path');
-
 const app = express();
 const socket = require("socket.io");
 require('dotenv').config();// sehla
 app.use(cors()); // This policy is used to secure a certain web server from access by other website or domain
 app.use(express.json());
-
 app.use("/api/auth",userRoutes);
 app.use("/api/messages",messagesRoute); 
-
-
 // mongoose.connect(process.env.MONGO_URL,{
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true,
 // }).then(()=>{console.log('connected db')});
-
 const mongo = async()=>{
     try {
         const con = await mongoose.connect(process.env.MONGO_URL,{
@@ -36,16 +31,12 @@ const mongo = async()=>{
 } 
 mongo();
 
-
-
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
     })
 }
-
-
 const PORT = process.env.PORT || 5000
 const server = app.listen(PORT, () =>{
     console.log('Server is running on port', PORT)
