@@ -1,6 +1,6 @@
 const express = require('express');
 const patth  = require('path');
-import patth from 'path';
+
 const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
@@ -70,4 +70,4 @@ io.on("connection",(socket)=>{
         socket.to(sendUserSocket).emit("msg-receive",data.message);
     }
  })
-})
+}) 
