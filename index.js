@@ -1,6 +1,5 @@
 const express = require('express');
 const patth  = require('path');
-
 const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
