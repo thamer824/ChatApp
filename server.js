@@ -7,7 +7,7 @@ const messagesRoute = require('./routes/messagesRoute');
 const app = express();
 const socket = require("socket.io");
 require('dotenv').config();// sehla
-app.use(cors()); // This policy is used to secure a certain web server from access by other website or domain
+//app.use(cors()); // This policy is used to secure a certain web server from access by other website or domain
 app.use(express.json());
 app.use("/api/auth",userRoutes);
 app.use("/api/messages",messagesRoute); 
