@@ -1,5 +1,6 @@
 const express = require('express');
-const path  = require('path');
+const patth  = require('path');
+import patth from 'path';
 const cors = require('cors');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoute');
@@ -34,7 +35,7 @@ mongo();
 if(process.env.NODE_ENV === 'production'){
     app.use(express.static('client/build'))
     app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+        res.sendFile(patth.join(__dirname, 'client', 'build', 'index.html'))
     })
 }
 const PORT = process.env.PORT || 5000
