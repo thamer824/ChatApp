@@ -7,7 +7,7 @@ const messagesRoute = require('./routes/messagesRoute');
 const app = express();
 const socket = require("socket.io");
 require('dotenv').config();// sehla
-//app.use(cors()); // This policy is used to secure a certain web server from access by other website or domain
+app.use(cors()); // This policy is used to secure a certain web server from access by other website or domain
 app.use(express.json());
 app.use("/api/auth",userRoutes);
 app.use("/api/messages",messagesRoute); 
@@ -15,25 +15,6 @@ app.use("/api/messages",messagesRoute);
 //     useNewUrlParser: true,
 //     useUnifiedTopology: true,
 // }).then(()=>{console.log('connected db')});
-
-const whitelist = ['http://localhost:3000', 'https://reactappie.herokuapp.com'];
-const corsOptions = {
-  credentials: true, // This is important.
-  origin: (origin, callback) => {
-    if(whitelist.includes(origin))
-      return callback(null, true)
-
-      callback(new Error('Not allowed by CORS'));
-  }
-}
-
-app.use(cors(corsOptions));
-
-
-
-
-
-
 const mongo = async()=>{
     try {
         const con = await mongoose.connect(process.env.MONGO_URL,{
